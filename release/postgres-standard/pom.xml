@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.nexblocks.authguard.distribution</groupId>
+        <artifactId>release-parent</artifactId>
+        <version>0.12.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>postgres-standard</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.nexblocks.authguard</groupId>
+            <artifactId>javamail-provider</artifactId>
+            <version>${authguard.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nexblocks.authguard</groupId>
+            <artifactId>postgres-persistence</artifactId>
+            <version>${authguard.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nexblocks.authguard</groupId>
+            <artifactId>postgres-cache</artifactId>
+            <version>${authguard.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- build the docker image -->
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker-maven-plugin.version}</version>
+
+                <configuration>
+                    <images>
+                        <image>
+                            <name>ghcr.io/authguard/authguard-postgres-standard:${project.version}</name>
+                        </image>
+                    </images>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

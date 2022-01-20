@@ -1,0 +1,106 @@
+authguard:
+  injection:
+    packages: [
+      "com.authguard",
+      "com.authguard.external.email.jmail"
+    ]
+
+  passwords:
+    algorithm: scrypt
+    scrypt:
+      blockSize: 16
+    conditions:
+      minLength: 6
+
+  apiKeys:
+    type: "default"
+
+  jwt:
+    algorithm: "HMAC256"
+    privateKey: "memory/src/main/resources/keys/hmac256.pem"
+    issuer: "AuthGuard"
+    allowedAlgorithms: ["HMAC256"]
+    trustedIssuers: ["self"]
+
+  sessions:
+    randomSize: 16
+    lifeTime: "30m"
+
+  exchange:
+    allowed:
+      - from: "basic"
+        to: "accessToken"
+      - from: "refresh"
+        to: "accessToken"
+      - from: "basic"
+        to: "otp"
+      - from: "basic"
+        to: "sessionToken"
+      - from: "sessionToken"
+        to: "accountId"
+      - from: "sessionToken"
+        to: "session"
+
+  accessToken:
+    tokenLife: "1h"
+    refreshTokenLife: "1d"
+    useJti: true
+    includePermissions: true
+    includeRoles: true
+
+  otp:
+    lifeTime: "2m"
+    mode: "NUMERIC"
+    length: 6
+    generateToken: "accessToken"
+
+  passwordless:
+    tokenLife: "1h"
+    randomSize: 128
+    generateToken: "accessToken"
+
+  authorizationCode:
+    lifeTime: "5m"
+    randomSize: 128
+
+  authentication:
+    generateToken: "accessToken"
+
+  accounts:
+    authguardAdminRole: "authguard_admin"
+    verifyEmail: true
+
+  apps:
+    authguardAdminClientRole: "authguard_admin_client"
+
+  verification:
+    emailVerificationLife: "1d"
+
+  oneTimeAdmin:
+    usernameVariable: "AUTHGUARD_OTA_USERNAME"
+    passwordVariable: "AUTHGUARD_OTA_PASSWORD"
+
+  emb:
+    channels:
+      - accounts
+      - auth
+      - verification
+
+  accountLocker:
+    maxAttempt: 3
+
+  mail:
+    javaMail:
+      mail.smtp.host: localhost
+      mail.smtp.port: 3025
+      mail.debug: true
+    provider:
+      fromAddress: noreply@test.com
+      fromName: Auth server
+      templates:
+        otp:
+          file: emails/otp.hbs
+          subject: Login OTP
+        verify-email:
+          file: emails/verify.hbs
+          subject: Verify email

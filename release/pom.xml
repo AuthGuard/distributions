@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.nexblocks.authguard.distribution</groupId>
+    <artifactId>release-parent</artifactId>
+    <version>0.12.0</version>
+
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>memory-standard</module>
+        <module>mongo-standard</module>
+        <module>mysql-standard</module>
+        <module>postgres-standard</module>
+    </modules>
+
+    <repositories>
+        <repository>
+            <id>authguard-github</id>
+            <name>GitHub AuthGuard Maven Packages</name>
+            <url>https://maven.pkg.github.com/AuthGuard/AuthGuard</url>
+        </repository>
+
+        <repository>
+            <id>exntesions-github</id>
+            <name>GitHub AuthGuard Extensions Maven Packages</name>
+            <url>https://maven.pkg.github.com/AuthGuard/extensions</url>
+        </repository>
+    </repositories>
+
+    <properties>
+        <maven.compiler.source>1.11</maven.compiler.source>
+        <maven.compiler.target>1.11</maven.compiler.target>
+
+        <authguard.version>0.12.0</authguard.version>
+
+        <exec-plugin.version>1.6.0</exec-plugin.version>
+        <jar-plugin.verion>3.2.0</jar-plugin.verion>
+        <assembly-plugin.version>3.1.1</assembly-plugin.version>
+        <dependency-plugin.version>3.1.1</dependency-plugin.version>
+
+        <docker-maven-plugin.version>0.34.1</docker-maven-plugin.version>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.nexblocks.authguard</groupId>
+            <artifactId>rest</artifactId>
+            <version>${authguard.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nexblocks.authguard</groupId>
+            <artifactId>basic-auth</artifactId>
+            <version>${authguard.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nexblocks.authguard</groupId>
+            <artifactId>jwt</artifactId>
+            <version>${authguard.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nexblocks.authguard</groupId>
+            <artifactId>sessions</artifactId>
+            <version>${authguard.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nexblocks.authguard</groupId>
+            <artifactId>account-lock</artifactId>
+            <version>${authguard.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nexblocks.authguard</groupId>
+            <artifactId>verification-plugin</artifactId>
+            <version>${authguard.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nexblocks.authguard</groupId>
+            <artifactId>email</artifactId>
+            <version>${authguard.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- for running the server using mvn verify -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${exec-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.nexblocks.authguard.rest.Application</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- package the jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${assembly-plugin.version}</version>
+
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.nexblocks.authguard.rest.Application</mainClass>
+                        </manifest>
+                    </archive>
+
+                    <finalName>${project.artifactId}-${project.version}-standalone</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
+
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

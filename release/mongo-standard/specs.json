@@ -1,0 +1,79 @@
+{
+  "projectName": "mongo-standard",
+  "project": {
+    "authguardVersion": "0.8.0",
+    "system": "maven",
+    "groupId": "com.nexblocks.authguard",
+    "artifactName": "mongo-standard",
+    "version": "0.8.0",
+    "artifactType": "fatJar",
+    "docker": true
+  },
+  "extensions": {
+    "standard": [
+      {
+        "type": "standard",
+        "groupId": "com.nexblocks.authguard",
+        "name": "jwt"
+      },
+      {
+        "type": "standard",
+        "groupId": "com.nexblocks.authguard",
+        "name": "sessions"
+      },
+      {
+        "type": "standard",
+        "groupId": "com.nexblocks.authguard",
+        "name": "account-lock"
+      },
+      {
+        "type": "standard",
+        "groupId": "com.nexblocks.authguard",
+        "name": "verification-plugin"
+      },
+      {
+        "type": "standard",
+        "groupId": "com.nexblocks.authguard",
+        "name": "passwordless-send"
+      }
+    ],
+    "nonStandard": [
+      {
+        "type": "non-standard",
+        "groupId": "com.nexblocks.authguard",
+        "name": "javamail-provider",
+        "possibleVersions": [
+          "0.7.0",
+          "0.8.0"
+        ],
+        "version": "0.8.0"
+      }
+    ]
+  },
+  "dal": {
+    "persistence": "mongoPersistence",
+    "cache": "mongoCache",
+    "extensions": {
+      "persistence": {
+        "type": "non-standard",
+        "groupId": "com.nexblocks.authguard",
+        "name": "mongo-persistence",
+        "possibleVersions": [
+          "0.7.0",
+          "0.8.0"
+        ],
+        "version": "0.8.0"
+      },
+      "cache": {
+        "type": "non-standard",
+        "groupId": "com.nexblocks.authguard",
+        "name": "mongo-cache",
+        "possibleVersions": [
+          "0.7.0",
+          "0.8.0"
+        ],
+        "version": "0.8.0"
+      }
+    }
+  }
+}

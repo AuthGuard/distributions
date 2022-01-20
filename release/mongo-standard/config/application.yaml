@@ -1,0 +1,95 @@
+authguard:
+  injection:
+    packages: [ "com.nexblocks.authguard" ]
+
+  passwords:
+    algorithm: scrypt
+    conditions:
+      minLength: 6
+
+  apiKeys:
+    type: "default"
+
+  accounts:
+    authguardAdminRole: "authguard_admin"
+    verifyEmail: true
+
+  apps:
+    authguardAdminClientRole: "authguard_admin_client"
+
+  oneTimeAdmin:
+    usernameVariable: "AUTHGUARD_OTA_USERNAME"
+    passwordVariable: "AUTHGUARD_OTA_PASSWORD"
+
+
+  server:
+      port: 8080
+      # TLS/SSL configuration (recommended)
+      # securePort: 8443
+      # enableSsl: true
+      # enforceSsl: true
+      # keystorePath: /path/to/keystore
+      # keystorePassword: changeit
+      # client certificate authentication
+      # enableClientAuthentication: false
+      # truststorePath: /path/to/truststore
+      # truststorePassword: changeit
+
+  exchange:
+    providers: [ "accessToken" ]
+    allowed:
+      - from: "basic"
+        to: "passwordless"
+      - from: "passwordless"
+        to: "accessToken"
+      - from: "basic"
+        to: "otp"
+      - from: "otp"
+        to: "accessToken"
+      - from: "refresh"
+        to: "accessToken"
+      - from: "basic"
+        to: "accessToken"
+
+  authentication:
+    generateToken: "accessToken"
+    logoutToken: "accessToken"
+
+  # JWT
+  jwt:
+    algorithm: "HMAC256"
+    privateKey: "keys/hmac256.pem"
+    issuer: "AuthGuard"
+    allowedAlgorithms: ["HMAC256"]
+    trustedIssuers: ["self"]
+    encryption:
+      algorithm: "AES_CBC"
+      privateKey: "keys/aes128.txt"
+  
+  accessToken:
+    tokenLife: "10m"
+    refreshTokenLife: "1d"
+    useJti: true
+    includeRoles: true
+
+  idToken:
+    tokenLife: "1h"
+    refreshTokenLife: "1d"
+    useJti: true
+
+  # OTP & PWDLESS
+  otp:
+    lifeTime: "5m"
+    mode: "NUMERIC"
+    length: 6
+    generateToken: "accessToken"
+
+  passwordless:
+    tokenLife: "10m"
+    randomSize: 128
+    generateToken: "accessToken"
+
+  emb:
+    channels:
+      - accounts
+      - auth

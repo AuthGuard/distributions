@@ -1,0 +1,150 @@
+authguard:
+  server:
+    port: 3200
+
+  injection:
+    packages: [ "com.authguard", "com.nexblocks.authguard" ]
+
+  passwords:
+    algorithm: scrypt
+    scrypt:
+      blockSize: 16
+    conditions:
+      minLength: 6
+    version: 2
+    previousVersions:
+      - version: 1
+        algorithm: bcrypt
+
+  apiKeys:
+    type: "default"
+    hash:
+      algorithm: blake2b
+      key: "this is a test key"
+
+  jwt:
+    algorithm: "HMAC256"
+    privateKey: "keys/hmac256.pem"
+    issuer: "AuthGuard"
+    allowedAlgorithms: ["HMAC256"]
+    trustedIssuers: ["self"]
+    encryption:
+      algorithm: "AES_CBC"
+      privateKey: "keys/aes128.txt"
+
+  sessions:
+    randomSize: 16
+    lifeTime: "30m"
+
+  exchange:
+    providers: [ "accessToken", "sessionToken" ]
+    allowed:
+      - from: "basic"
+        to: "passwordless"
+      - from: "passwordless"
+        to: "oidc"
+      - from: "refresh"
+        to: "accessToken"
+      - from: "basic"
+        to: "accessToken"
+      - from: "refresh"
+        to: "accessToken"
+      - from: "basic"
+        to: "otp"
+      - from: "basic"
+        to: "sessionToken"
+      - from: "sessionToken"
+        to: "accountId"
+      - from: "sessionToken"
+        to: "session"
+      - from: "basic"
+        to: "oidc"
+      - from: "encryptedToken"
+        to: "accessToken"
+      - from: "encryptedToken"
+        to: "idToken"
+      - from: "otp"
+        to: "accessToken"
+
+  accessToken:
+    tokenLife: "10m"
+    refreshTokenLife: "1d"
+    useJti: true
+    includeRoles: true
+
+  idToken:
+    tokenLife: "1h"
+    refreshTokenLife: "1d"
+    useJti: true
+
+  otp:
+    lifeTime: "2m"
+    mode: "NUMERIC"
+    length: 6
+    generateToken: "accessToken"
+    method: EMAIL
+
+  passwordless:
+    tokenLife: "10m"
+    randomSize: 128
+    generateToken: "oidc"
+
+  authorizationCode:
+    lifeTime: "5m"
+    randomSize: 128
+
+  authentication:
+    generateToken: "accessToken"
+    logoutToken: "accessToken"
+
+  accounts:
+    authguardAdminRole: "authguard_admin"
+    defaultRoles: [ "test-role" ]
+    verifyEmail: true
+    defaultDomain: e2e
+
+  apps:
+    authguardAdminClientRole: "authguard_admin_client"
+
+  verification:
+    emailVerificationLife: "1d"
+
+  external:
+    email: true
+    sms: true
+
+  oneTimeAdmin:
+    usernameVariable: "AUTHGUARD_OTA_USERNAME"
+    passwordVariable: "AUTHGUARD_OTA_PASSWORD"
+
+  emb:
+    subscribers:
+      - com.nexblocks.authguard.external.email.subscribers.EmailPasswordlessSubscriber
+    channels:
+      - accounts
+      - auth
+      - verification
+      - passwordless
+      - credentials
+      - otp
+
+  accountLocker:
+    maxAttempt: 3
+
+  mail:
+    provider:
+      username: apikey
+      password: "env:SENDGRID_TOKEN"
+      fromAddress: noreply@nexblocks.com
+      fromName: Tests
+      templates:
+        passwordless:
+          file: emails/passwordless.hbs
+          subject: Passwordless Yay
+    javaMail:
+      "mail.smtp.host": smtp.sendgrid.net
+      "mail.smtp.port": 465
+      "mail.debug": true
+      "mail.smtp.auth": true
+      "mail.smtp.ssl.enable": true
+

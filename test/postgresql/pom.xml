@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>test-distributions-parent</artifactId>
+        <groupId>com.nexblocks.authguard.distribution</groupId>
+        <version>0.12.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>postgresql</artifactId>
+
+    <properties>
+        <maven.compiler.source>1.11</maven.compiler.source>
+        <maven.compiler.target>1.11</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.nexblocks.authguard</groupId>
+            <artifactId>postgres-cache</artifactId>
+            <version>${standard-extensions.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nexblocks.authguard</groupId>
+            <artifactId>postgres-persistence</artifactId>
+            <version>${standard-extensions.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nexblocks.authguard</groupId>
+            <artifactId>rest</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nexblocks.authguard</groupId>
+            <artifactId>log-email</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nexblocks.authguard</groupId>
+            <artifactId>log-sms</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nexblocks.authguard</groupId>
+            <artifactId>jwt</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nexblocks.authguard</groupId>
+            <artifactId>sessions</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <version>${testcontainers.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${testcontainers.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

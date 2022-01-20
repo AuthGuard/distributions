@@ -1,0 +1,42 @@
+{
+  "projectName": "memory-standard",
+  "project": {
+    "authguardVersion": "0.8.0",
+    "system": "maven",
+    "groupId": "com.nexblocks",
+    "artifactName": "memory-standard",
+    "version": "0.1.0",
+    "artifactType": "fatJar",
+    "docker": true
+  },
+  "extensions": {
+    "standard": [
+      {
+        "type": "standard",
+        "groupId": "com.nexblocks.authguard",
+        "name": "jwt"
+      },
+      {
+        "type": "standard",
+        "groupId": "com.nexblocks.authguard",
+        "name": "passwordless-send"
+      }
+    ],
+    "nonStandard": []
+  },
+  "dal": {
+    "inMemory": true,
+    "extensions": {
+      "persistence": {
+        "type": "non-standard",
+        "groupId": "com.nexblocks.authguard",
+        "name": "memory-dal",
+        "possibleVersions": [
+          "0.7.0",
+          "0.8.0"
+        ],
+        "version": "0.8.0"
+      }
+    }
+  }
+}
