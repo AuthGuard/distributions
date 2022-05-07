@@ -99,7 +99,9 @@ authguard:
 
   accounts:
     authguardAdminRole: "authguard_admin"
-    defaultRoles: [ "test-role" ]
+    defaultRolesByDomain:
+      e2e: [ "test-role" ]
+      other: [ "nope" ]
     verifyEmail: true
     defaultDomain: e2e
 

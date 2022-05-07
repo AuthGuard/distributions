@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.nexblocks.authguard.distribution</groupId>
         <artifactId>release-parent</artifactId>
-        <version>0.12.0</version>
+        <version>0.13.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -17,19 +17,19 @@
         <dependency>
             <groupId>com.nexblocks.authguard</groupId>
             <artifactId>javamail-provider</artifactId>
-            <version>${authguard.version}</version>
+            <version>${extensions.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.nexblocks.authguard</groupId>
             <artifactId>mongo-persistence</artifactId>
-            <version>${authguard.version}</version>
+            <version>${extensions.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.nexblocks.authguard</groupId>
             <artifactId>mongo-cache</artifactId>
-            <version>${authguard.version}</version>
+            <version>${extensions.version}</version>
         </dependency>
     </dependencies>
 

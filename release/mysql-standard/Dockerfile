@@ -1,6 +1,6 @@
 FROM openjdk:11
 
-ARG JAR_FILE=target/mysql-standard-0.12.0-standalone.jar
+ARG JAR_FILE=target/mysql-standard-standalone.jar
 
 
 RUN mkdir /opt/authguard
@@ -12,7 +12,7 @@ COPY ${JAR_FILE} /opt/authguard
 EXPOSE 8080
 
 
-ENTRYPOINT ["java", "-jar", "/opt/authguard/mysql-standard-0.12.0-standalone.jar",\
+ENTRYPOINT ["java", "-jar", "/opt/authguard/mysql-standard-standalone.jar",\
             "--config", "/opt/authguard/config/application.yaml"]
 
 

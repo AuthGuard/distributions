@@ -1,6 +1,6 @@
 FROM openjdk:14-jdk-alpine
 
-ARG JAR_FILE=target/postgres-standard-0.12.0-standalone.jar
+ARG JAR_FILE=target/postgres-standard-standalone.jar
 
 
 RUN mkdir /opt/authguard
@@ -12,7 +12,7 @@ COPY ${JAR_FILE} /opt/authguard
 EXPOSE 8080
 
 
-ENTRYPOINT ["java", "-jar", "/opt/authguard/postgres-standard-0.12.0-standalone.jar",\
+ENTRYPOINT ["java", "-jar", "/opt/authguard/postgres-standard-standalone.jar",\
             "--config", "/opt/authguard/config/application.yaml"]
 
 
