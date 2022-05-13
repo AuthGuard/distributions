@@ -4,7 +4,7 @@ import com.nexblocks.authguard.rest.Application;
 
 public class MongoDistribution {
     public static void main(String[] args) {
-//        MongoContainer.start();
+        MongoContainer.start();
 
         Runtime.getRuntime()
                 .addShutdownHook(new Thread(MongoContainer::stop, "Shutodown-hook"));

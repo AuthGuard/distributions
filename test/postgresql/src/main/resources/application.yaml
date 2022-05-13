@@ -17,7 +17,7 @@ authguard:
 
   jwt:
     algorithm: "HMAC256"
-    privateKey: "keys/hmac256.pem"
+    privateKey: "file:keys/hmac256.pem"
     issuer: "AuthGuard"
     allowedAlgorithms: ["HMAC256"]
     trustedIssuers: ["self"]

@@ -6,7 +6,7 @@
 
     <groupId>com.nexblocks.authguard.distribution</groupId>
     <artifactId>release-parent</artifactId>
-    <version>0.13.0</version>
+    <version>0.14.0</version>
 
     <packaging>pom</packaging>
 
@@ -35,8 +35,8 @@
         <maven.compiler.source>1.11</maven.compiler.source>
         <maven.compiler.target>1.11</maven.compiler.target>
 
-        <authguard.version>0.13.0</authguard.version>
-        <extensions.version>0.13.0</extensions.version>
+        <authguard.version>0.14.0</authguard.version>
+        <extensions.version>0.14.0</extensions.version>
 
         <exec-plugin.version>1.6.0</exec-plugin.version>
         <jar-plugin.verion>3.2.0</jar-plugin.verion>
@@ -68,6 +68,12 @@
         <dependency>
             <groupId>com.nexblocks.authguard</groupId>
             <artifactId>sessions</artifactId>
+            <version>${authguard.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nexblocks.authguard</groupId>
+            <artifactId>ldap</artifactId>
             <version>${authguard.version}</version>
         </dependency>
 

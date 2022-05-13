@@ -24,13 +24,13 @@ authguard:
 
   jwt:
     algorithm: "HMAC256"
-    privateKey: "keys/hmac256.pem"
+    privateKey: "env:HMAC_KEY"
     issuer: "AuthGuard"
     allowedAlgorithms: ["HMAC256"]
     trustedIssuers: ["self"]
     encryption:
       algorithm: "AES_CBC"
-      privateKey: "keys/aes128.txt"
+      privateKey: "file:keys/aes128.txt"
 
   sessions:
     randomSize: 16
@@ -122,6 +122,8 @@ authguard:
   emb:
     subscribers:
       - com.nexblocks.authguard.external.email.subscribers.EmailPasswordlessSubscriber
+      - com.nexblocks.authguard.emb.log.LogMessagePublisher
+      - com.nexblocks.authguard.external.email.subscribers.EmailOtpSubscriber
     channels:
       - accounts
       - auth
@@ -135,18 +137,21 @@ authguard:
 
   mail:
     provider:
-      username: apikey
-      password: "env:SENDGRID_TOKEN"
+#      username: apikey
+#      password: "env:SENDGRID_TOKEN"
       fromAddress: noreply@nexblocks.com
       fromName: Tests
       templates:
         passwordless:
           file: emails/passwordless.hbs
           subject: Passwordless Yay
+        otp:
+          file: emails/otp.hbs
+          subject: OTP FTW
     javaMail:
-      "mail.smtp.host": smtp.sendgrid.net
-      "mail.smtp.port": 465
+      "mail.smtp.host": localhost
+      "mail.smtp.port": 3025
       "mail.debug": true
-      "mail.smtp.auth": true
-      "mail.smtp.ssl.enable": true
+#      "mail.smtp.auth": true
+#      "mail.smtp.ssl.enable": true
 
