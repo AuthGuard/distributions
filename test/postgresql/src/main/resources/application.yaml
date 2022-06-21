@@ -2,6 +2,9 @@ authguard:
   injection:
     packages: [ "com.nexblocks.authguard" ]
 
+  server:
+    port: 3200
+
   passwords:
     algorithm: scrypt
     scrypt:
