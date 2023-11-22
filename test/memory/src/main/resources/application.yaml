@@ -1,6 +1,7 @@
 authguard:
   server:
     port: 3200
+    unprotectedPaths: [ "sso", "oidc" ]
 
   injection:
     packages: [ "com.authguard", "com.nexblocks.authguard" ]
@@ -31,6 +32,11 @@ authguard:
     encryption:
       algorithm: "AES_CBC"
       privateKey: "file:keys/aes128.txt"
+
+  oauthSso:
+    enabled: true
+    useUsername: true
+    usePhoneNumber: true
 
   sessions:
     randomSize: 16
@@ -65,6 +71,12 @@ authguard:
         to: "idToken"
       - from: "otp"
         to: "accessToken"
+      - from: "basic"
+        to: "authorizationCode"
+      - from: "authorizationCode"
+        to: "accessToken"
+      - from: "authorizationCode"
+        to: "oidc"
 
   accessToken:
     tokenLife: "10m"
