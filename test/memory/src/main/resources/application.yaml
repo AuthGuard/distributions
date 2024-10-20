@@ -23,6 +23,15 @@ authguard:
       algorithm: blake2b
       key: "this is a test key"
 
+  cryptographic_keys:
+    encryptionKey: "file:keys/chacha20.txt"
+
+  totpAuthenticators:
+    generateQrCode: true
+    qrIssuer: e2e
+    qrUserIdentifierType: USERNAME
+    encryptionKey: "file:keys/chacha20.txt"
+
   jwt:
     algorithm: "HMAC256"
     privateKey: "file:keys/hmac256.pem"
@@ -37,6 +46,7 @@ authguard:
     enabled: true
     useUsername: true
     usePhoneNumber: true
+    domains: ["e2e"]
 
   sessions:
     randomSize: 16
@@ -77,6 +87,10 @@ authguard:
         to: "accessToken"
       - from: "authorizationCode"
         to: "oidc"
+      - from: "basic"
+        to: "totp"
+      - from: "totp"
+        to: "accessToken"
 
   accessToken:
     tokenLife: "10m"
@@ -136,6 +150,7 @@ authguard:
       - com.nexblocks.authguard.external.email.subscribers.EmailPasswordlessSubscriber
       - com.nexblocks.authguard.emb.log.LogMessagePublisher
       - com.nexblocks.authguard.external.email.subscribers.EmailOtpSubscriber
+      - com.nexblocks.authguard.service.events.EventsRecorder
     channels:
       - accounts
       - auth
@@ -143,6 +158,10 @@ authguard:
       - passwordless
       - credentials
       - otp
+      - roles
+      - permissions
+      - apps
+      - clients
 
   accountLocker:
     maxAttempt: 3

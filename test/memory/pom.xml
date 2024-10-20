@@ -5,7 +5,7 @@
     <parent>
         <artifactId>test-distributions-parent</artifactId>
         <groupId>com.nexblocks.authguard.distribution</groupId>
-        <version>0.20.0</version>
+        <version>0.22.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -72,6 +72,12 @@
 
         <dependency>
             <groupId>com.nexblocks.authguard</groupId>
+            <artifactId>crypto</artifactId>
+            <version>${authguard.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nexblocks.authguard</groupId>
             <artifactId>sessions</artifactId>
             <version>${authguard.version}</version>
         </dependency>
@@ -116,6 +122,17 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
+
+                <configuration>
+                    <executable>java</executable>
+                    <arguments>
+                        <argument>-classpath</argument>
+                        <!-- automatically creates the classpath using all project dependencies,
+                             also adding the project build directory -->
+                        <classpath/>
+                        <argument>com.authguard.distributions.memory.MemoryDistribution</argument>
+                    </arguments>
+                </configuration>
             </plugin>
 
             <plugin>
